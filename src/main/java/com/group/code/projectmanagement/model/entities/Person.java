@@ -15,8 +15,11 @@ import java.util.Set;
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Max(value = 100)
+    private String nome;
 
     @Column(name = "datanascimento")
     private LocalDate dataNascimento;

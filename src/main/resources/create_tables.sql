@@ -27,7 +27,7 @@ CREATE TABLE  projeto (
   CONSTRAINT pk_projeto PRIMARY KEY (id),
   CONSTRAINT fk_gerente FOREIGN KEY (idgerente)
       REFERENCES pessoa (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION)
+      ON UPDATE NO ACTION ON DELETE NO ACTION);
 
 -- -----------------------------------------------------
 -- Table Membros
