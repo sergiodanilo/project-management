@@ -39,7 +39,7 @@ public class Project {
     @Max(value = 45)
     private String risco;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "idgerente")
     private Person gerente;
 
