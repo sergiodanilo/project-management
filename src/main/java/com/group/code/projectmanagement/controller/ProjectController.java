@@ -35,7 +35,16 @@ public class ProjectController {
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody PostProjectDTO projectDTO) {
         try {
-            projectService.createProject(projectDTO);
+            return ResponseEntity.ok().body(projectService.createProject(projectDTO));
+        } catch (ValidatorException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody PostProjectDTO projectDTO) {
+        try {
+            projectService.updateProject(id, projectDTO);
             return ResponseEntity.ok().build();
         } catch (ValidatorException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());

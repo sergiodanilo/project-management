@@ -7,6 +7,7 @@ import com.group.code.projectmanagement.model.entities.Project;
 import com.group.code.projectmanagement.model.enums.ProjectStatusEnum;
 import com.group.code.projectmanagement.repository.ProjectRepository;
 import com.group.code.projectmanagement.util.MapperUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,9 +39,21 @@ public class ProjectService {
         }
     }
 
-    public void createProject(PostProjectDTO projectDTO) {
+    public ProjectDTO createProject(PostProjectDTO projectDTO) {
         Project project = modelMapper.map(projectDTO, Project.class);
         repository.save(project);
+        return modelMapper.map(project, ProjectDTO.class);
+    }
+
+
+    public void updateProject(Long id, PostProjectDTO projectDTO) {
+        Optional<Project> optProject = repository.findById(id);
+
+        if (optProject.isPresent()) {
+            Project project = optProject.get();
+            BeanUtils.copyProperties(projectDTO, project);
+            repository.save(project);
+        }
     }
 
     public void deleteProject(Long id) {

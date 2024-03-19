@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class PostProjectDTO {
 
-    @NotNull(message = "Nome cannot be null")
+    @NotNull(message = "Field nome cannot be null")
     private String nome;
 
     @NotNull
@@ -30,16 +30,17 @@ public class PostProjectDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataFim;
 
-    @NotNull
+    @NotNull(message = "Field descricao cannot be null")
     private String descricao;
 
-    @NotNull
+    @NotNull(message = "Field status cannot be null")
     private ProjectStatusEnum status;
 
-    @NonNull
+    @NotNull(message = "Field orcamento cannot be null")
     private Double orcamento;
 
-    private PersonDTO gerente;
+    @NotNull(message = "Field idGerente cannot be null")
+    private Long idGerente;
 
 }
 

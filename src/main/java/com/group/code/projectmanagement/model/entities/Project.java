@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -19,7 +19,7 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Max(value = 200)
+    @Size(min = 3, max = 200)
     private String nome;
 
     private LocalDate dataInicio;
@@ -28,7 +28,7 @@ public class Project {
 
     private LocalDate dataFim;
 
-    @Max(value = 5000)
+    @Size(min = 3, max = 5000)
     private String descricao;
 
     @Enumerated(value = EnumType.STRING)
@@ -36,7 +36,7 @@ public class Project {
 
     private Double orcamento;
 
-    @Max(value = 45)
+    @Size(min = 3, max = 45)
     private String risco;
 
     @OneToOne
