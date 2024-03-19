@@ -110,7 +110,9 @@ class ProjectServiceTest {
         Optional<Project> optionalProject = Optional.of(mockProject);
         when(projectRepository.findById(id)).thenReturn(optionalProject);
 
-        assertThrows(ValidatorException.class, () -> projectService.deleteProject(id));
+        ValidatorException ex = assertThrows(ValidatorException.class, () -> projectService.deleteProject(id));
+
+        assertEquals(ex.getMessage(), "Projeto iniciado, em andamento ou encerrado não pode ser excluído!");
     }
 
     @Test
