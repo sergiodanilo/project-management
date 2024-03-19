@@ -1,10 +1,13 @@
 package com.group.code.projectmanagement.service;
 
+import com.group.code.projectmanagement.controller.project.request.PatchProjectDTO;
+import com.group.code.projectmanagement.controller.project.request.PostProjectDTO;
+import com.group.code.projectmanagement.controller.project.response.ProjectDTO;
 import com.group.code.projectmanagement.exception.ValidatorException;
-import com.group.code.projectmanagement.model.dto.PostProjectDTO;
-import com.group.code.projectmanagement.model.dto.ProjectDTO;
+import com.group.code.projectmanagement.model.entities.Person;
 import com.group.code.projectmanagement.model.entities.Project;
 import com.group.code.projectmanagement.model.enums.ProjectStatusEnum;
+import com.group.code.projectmanagement.repository.PersonRepository;
 import com.group.code.projectmanagement.repository.ProjectRepository;
 import com.group.code.projectmanagement.util.MapperUtils;
 import org.springframework.beans.BeanUtils;
@@ -16,12 +19,15 @@ import java.util.Optional;
 @Service
 public class ProjectService {
 
-    private ProjectRepository repository;
+    private final ProjectRepository repository;
+    private final PersonRepository personRepository;
 
     MapperUtils modelMapper = new MapperUtils();
 
-    public ProjectService(ProjectRepository repository) {
+    public ProjectService(ProjectRepository repository,
+                          PersonRepository personRepository) {
         this.repository = repository;
+        this.personRepository = personRepository;
     }
 
     public List<ProjectDTO> getAllProjects() {
@@ -45,7 +51,6 @@ public class ProjectService {
         return modelMapper.map(project, ProjectDTO.class);
     }
 
-
     public void updateProject(Long id, PostProjectDTO projectDTO) {
         Optional<Project> optProject = repository.findById(id);
 
@@ -67,6 +72,23 @@ public class ProjectService {
             }
 
             repository.delete(project);
+        }
+    }
+
+    public void addMembersToProject(Long id, PatchProjectDTO projectDTO) {
+        Optional<Project> optProject = repository.findById(id);
+
+        if (optProject.isPresent()) {
+            Project project = optProject.get();
+            projectDTO.getMembros().forEach(memberId -> {
+                Optional<Person> optPerson = personRepository.findById(memberId);
+
+                if (optPerson.isPresent() && optPerson.get().getFuncionario() && !optPerson.get().getGerente()) {
+                    project.getMembros().add(optPerson.get());
+                }
+            });
+
+            repository.save(project);
         }
     }
 

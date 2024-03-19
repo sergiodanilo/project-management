@@ -1,8 +1,9 @@
-package com.group.code.projectmanagement.controller;
+package com.group.code.projectmanagement.controller.project;
 
+import com.group.code.projectmanagement.controller.project.request.PatchProjectDTO;
 import com.group.code.projectmanagement.exception.ValidatorException;
-import com.group.code.projectmanagement.model.dto.PostProjectDTO;
-import com.group.code.projectmanagement.model.dto.ProjectDTO;
+import com.group.code.projectmanagement.controller.project.request.PostProjectDTO;
+import com.group.code.projectmanagement.controller.project.response.ProjectDTO;
 import com.group.code.projectmanagement.service.ProjectService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @RequestMapping("/projects")
 public class ProjectController {
 
-    private ProjectService projectService;
+    private final ProjectService projectService;
 
     public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
@@ -42,7 +43,7 @@ public class ProjectController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody PostProjectDTO projectDTO) {
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody PostProjectDTO projectDTO) {
         try {
             projectService.updateProject(id, projectDTO);
             return ResponseEntity.ok().build();
@@ -55,6 +56,16 @@ public class ProjectController {
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
             projectService.deleteProject(id);
+            return ResponseEntity.ok().build();
+        } catch (ValidatorException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> addMembersToProject(@PathVariable Long id, @RequestBody PatchProjectDTO projectDTO) {
+        try {
+            projectService.addMembersToProject(id, projectDTO);
             return ResponseEntity.ok().build();
         } catch (ValidatorException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());

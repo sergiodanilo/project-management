@@ -48,6 +48,6 @@ public class Project {
             name = "membros",
             joinColumns = @JoinColumn(name = "idprojeto"),
             inverseJoinColumns = @JoinColumn(name = "idpessoa"))
-    private Set<Person> people;
+    private Set<Person> membros;
 
 }

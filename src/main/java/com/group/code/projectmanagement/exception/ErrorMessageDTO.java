@@ -1,4 +1,4 @@
-package com.group.code.projectmanagement.model.dto;
+package com.group.code.projectmanagement.exception;
 
 import lombok.Builder;
 import lombok.Getter;
