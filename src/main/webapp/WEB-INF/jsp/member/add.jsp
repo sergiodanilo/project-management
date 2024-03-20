@@ -6,13 +6,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seleção de Funcionários</title>
+    <title>Seleção de Membros</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
 <body>
     <div class="container">
+        <%@ include file="../common/navigation.jsp" %>
+
         <h2>Seleção de membros</h2>
         <div class="row">
             <div class="col-md-6">
@@ -63,7 +65,6 @@
                 data: JSON.stringify(requestBody),
                 success: function() {
                     window.location.href = 'project/list.jsp';
-
                 },
                 error: function(xhr, status, error) {
                     console.error('Error sending PATCH request:', error);

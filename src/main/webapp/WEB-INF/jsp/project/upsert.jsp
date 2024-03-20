@@ -13,7 +13,9 @@
 
 <body>
     <div class="container">
-        <h1>Criar Projeto</h1>
+        <%@ include file="../common/navigation.jsp" %>
+
+        <h2>Criar Projeto</h2>
         <form action="${pageContext.request.contextPath}/projects/upsert" method="post">
             <input type="hidden" name="id" value="${project.id}">
 

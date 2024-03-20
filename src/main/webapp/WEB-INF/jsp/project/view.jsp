@@ -14,7 +14,9 @@
 </head>
     <body>
     <div class="container">
-        <h1>Project Details</h1>
+        <%@ include file="../common/navigation.jsp" %>
+
+        <h2>Project Details</h2>
         <div class="row">
             <div class="col-md-6">
                 <p><strong>ID:</strong> ${project.id}</p>
