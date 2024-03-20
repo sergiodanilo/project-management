@@ -1,3 +1,4 @@
+<%@ page import="com.group.code.projectmanagement.model.enums.ProjectRiskEnum" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -52,7 +53,12 @@
                     <td>${project.dataFim}</td>
                     <td>${project.orcamento}</td>
                     <td>${project.status.descricao}</td>
-                    <td>${project.risco.descricao}</td>
+                    <td>
+                         <span class="badge badge-${project.risco == ProjectRiskEnum.BAIXO ? "success" : project.risco == ProjectRiskEnum.MEDIO ? "warning" : "danger"}">
+                            ${project.risco == ProjectRiskEnum.BAIXO ? "Baixo" : project.risco == ProjectRiskEnum.MEDIO ? "Médio" : "Alto"}
+                        </span>
+                    </td>
+
                     <td class="actions-column">
                         <a href="projects/view/${project.id}">
                             <img src="https://cdn-icons.flaticon.com/svg/3917/3917132.svg?token=exp=1710953540~hmac=53b08ce5e069c53f11ebd3d291690052"

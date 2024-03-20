@@ -37,7 +37,7 @@
 <div class="container">
     <div class="row error-container">
         <div class="col-md-12">
-            <h1>Error 404</h1>
+            <h1>Erro!</h1>
             <p>Desculpa, você não pode remover um projeto com status INICIADO, EM ANDAMENTO ou ENCERRADO!</p>
             <a href="/" class="btn btn-primary">Go to Homepage</a>
         </div>
