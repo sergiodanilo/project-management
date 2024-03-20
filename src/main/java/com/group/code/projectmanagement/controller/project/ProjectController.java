@@ -83,7 +83,7 @@ public class ProjectController {
             projectService.addMembersToProject(id, membros);
             return "home";
         } catch (ValidatorException exception) {
-            return "error";
+            return "project/error-delete";
         }
     }
 
