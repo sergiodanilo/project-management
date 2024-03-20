@@ -1,5 +1,6 @@
 package com.group.code.projectmanagement.model.entities;
 
+import com.group.code.projectmanagement.model.enums.ProjectRiskEnum;
 import com.group.code.projectmanagement.model.enums.ProjectStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,8 +37,8 @@ public class Project {
 
     private Double orcamento;
 
-    @Size(min = 3, max = 45)
-    private String risco;
+    @Enumerated(value = EnumType.STRING)
+    private ProjectRiskEnum risco;
 
     @OneToOne
     @JoinColumn(name = "idgerente")

@@ -1,5 +1,6 @@
 package com.group.code.projectmanagement.controller.project.request;
 
+import com.group.code.projectmanagement.model.enums.ProjectRiskEnum;
 import com.group.code.projectmanagement.model.enums.ProjectStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,6 +45,8 @@ public class PostProjectDTO {
 
     @NotNull(message = "Field idGerente cannot be null")
     private Long idGerente;
+
+    private ProjectRiskEnum risco;
 
 }
 
