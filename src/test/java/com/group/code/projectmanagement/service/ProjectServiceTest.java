@@ -76,9 +76,7 @@ class ProjectServiceTest {
 
         when(projectRepository.save(any())).thenReturn(mockProject);
 
-        ProjectDTO savedProject = projectService.createProject(projectDTO);
-
-        assertNotNull(savedProject);
+        projectService.upsertProject(projectDTO);
     }
 
     @Test

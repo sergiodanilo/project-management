@@ -14,14 +14,16 @@
 <body>
     <div class="container">
         <h1>Criar Projeto</h1>
-        <form action="${pageContext.request.contextPath}/projects/create" method="post">
-        <div class="form-group">
+        <form action="${pageContext.request.contextPath}/projects/upsert" method="post">
+            <input type="hidden" name="id" value="${project.id}">
+
+            <div class="form-group">
                 <label for="nome">Nome:</label>
                 <input type="text" class="form-control" id="nome" name="nome" value="${project.nome}" required>
             </div>
             <div class="form-group">
                 <label for="descricao">Descrição:</label>
-                <textarea class="form-control" id="descricao" name="descricao" rows="3" value="${project.descricao}" required></textarea>
+                <textarea class="form-control" id="descricao" name="descricao" rows="3" required>${project.descricao}</textarea>
             </div>
             <div class="form-group">
                 <label for="dataInicio">Data de Início:</label>
@@ -44,16 +46,16 @@
                 <select class="form-control" id="status" name="status" value="${project.status}" required>
                     <option value="">[Selecione]</option>
                     <c:forEach var="status" items="${status}">
-                        <option value="${status}">${status.descricao}</option>
+                        <option value="${status}" ${status eq project.status ? 'selected' : ''}>${status.descricao}</option>
                     </c:forEach>
                 </select>
             </div>
             <div class="form-group">
                 <label for="idGerente">Gerente Responsável:</label>
-                <select class="form-control" id="idGerente" name="idGerente" value="${project.idGerente}" required>
+                <select class="form-control" id="idGerente" name="idGerente" value="${project.gerente.id}" required>
                     <option value="">[Selecione]</option>
                     <c:forEach var="manager" items="${managers}">
-                        <option value="${manager.id}">${manager.nome}</option>
+                        <option value="${manager.id}" ${manager.id eq project.gerente.id ? 'selected' : ''}>${manager.nome}</option>
                     </c:forEach>
                 </select>
             </div>

@@ -48,12 +48,12 @@
                 <td>${project.dataPrevisaoFim}</td>
                 <td>${project.dataFim}</td>
                 <td>${project.orcamento}</td>
-                <td>${project.status}</td>
+                <td>${project.status.descricao}</td>
                 <td class="actions-column">
                     <a href="projects/upsert?id=${project.id}">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/svg/pencil.svg" alt="Pencil" width="20" height="20" style="margin-right: 5px;">
                     </a>
-                    <a href="#">
+                    <a href="projects/delete/${project.id}">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/svg/trashcan.svg" alt="Trash" width="20" height="20" style="margin-right: 5px;">
                     </a>
                 </td>
@@ -61,6 +61,12 @@
         </c:forEach>
         </tbody>
     </table>
+
+    <div>
+        <c:if test="${projects.isEmpty()}">
+            <label>Sem projetos cadastrados</label>
+        </c:if>
+    </div>
 
     <a href="/" class="btn btn-link">Voltar</a>
 </div>

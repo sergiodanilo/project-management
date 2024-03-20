@@ -16,6 +16,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class PostProjectDTO {
 
+    private Long id;
+
     @NotNull(message = "Field nome cannot be null")
     private String nome;
 

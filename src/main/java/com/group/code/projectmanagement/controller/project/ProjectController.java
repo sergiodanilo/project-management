@@ -5,7 +5,6 @@ import com.group.code.projectmanagement.controller.project.request.PatchProjectD
 import com.group.code.projectmanagement.controller.project.request.PostProjectDTO;
 import com.group.code.projectmanagement.controller.project.response.ProjectDTO;
 import com.group.code.projectmanagement.exception.ValidatorException;
-import com.group.code.projectmanagement.model.entities.Person;
 import com.group.code.projectmanagement.model.enums.ProjectStatusEnum;
 import com.group.code.projectmanagement.service.PersonService;
 import com.group.code.projectmanagement.service.ProjectService;
@@ -14,9 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/projects")
@@ -46,48 +43,23 @@ public class ProjectController {
         return "project/upsert";
     }
 
-    @PostMapping("create")
+    @PostMapping("upsert")
     public String createProject(PostProjectDTO projectDTO) {
         try {
-            projectService.createProject(projectDTO);
+            projectService.upsertProject(projectDTO);
             return "home";
         } catch (ValidatorException exception) {
             return "error";
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProjectDTO> getById(@PathVariable Long id) {
-        Optional<ProjectDTO> projectDTO = projectService.getProjectById(id);
-        return projectDTO.map(dto -> ResponseEntity.ok().body(dto)).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-//    @PostMapping
-//    public ResponseEntity<?> create(@Valid PostProjectDTO projectDTO) {
-//        try {
-//            return ResponseEntity.ok().body(projectService.createProject(projectDTO));
-//        } catch (ValidatorException exception) {
-//            return ResponseEntity.badRequest().body(exception.getMessage());
-//        }
-//    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody PostProjectDTO projectDTO) {
-        try {
-            projectService.updateProject(id, projectDTO);
-            return ResponseEntity.ok().build();
-        } catch (ValidatorException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
         try {
             projectService.deleteProject(id);
-            return ResponseEntity.ok().build();
+            return "home";
         } catch (ValidatorException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
+            return "error";
         }
     }
 

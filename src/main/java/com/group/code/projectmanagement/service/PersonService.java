@@ -38,7 +38,6 @@ public class PersonService {
 
     public List<PersonDTO> getAllManagerMember() {
         List<Person> managers = repository.findAllByGerenteTrue();
-
         return mapperUtils.mapList(managers, PersonDTO.class);
     }
 

@@ -45,10 +45,11 @@ public class ProjectService {
         }
     }
 
-    public ProjectDTO createProject(PostProjectDTO projectDTO) {
+    public void upsertProject(PostProjectDTO projectDTO) {
         Project project = modelMapper.map(projectDTO, Project.class);
+        Optional<Person> optGerente = personRepository.findById(projectDTO.getIdGerente());
+        optGerente.ifPresent(project::setGerente);
         repository.save(project);
-        return modelMapper.map(project, ProjectDTO.class);
     }
 
     public void updateProject(Long id, PostProjectDTO projectDTO) {
@@ -92,12 +93,12 @@ public class ProjectService {
         }
     }
 
-    public PostProjectDTO initProject(Long id) {
+    public ProjectDTO initProject(Long id) {
         if (id == null) {
-            return new PostProjectDTO();
+            return new ProjectDTO();
         } else {
             Optional<Project> optProject = repository.findById(id);
-            return modelMapper.map(optProject, PostProjectDTO.class);
+            return modelMapper.map(optProject, ProjectDTO.class);
         }
     }
 
