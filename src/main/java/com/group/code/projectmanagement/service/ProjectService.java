@@ -92,4 +92,13 @@ public class ProjectService {
         }
     }
 
+    public PostProjectDTO initProject(Long id) {
+        if (id == null) {
+            return new PostProjectDTO();
+        } else {
+            Optional<Project> optProject = repository.findById(id);
+            return modelMapper.map(optProject, PostProjectDTO.class);
+        }
+    }
+
 }
