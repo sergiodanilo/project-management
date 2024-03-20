@@ -13,10 +13,10 @@
 </head>
 <body>
     <div class="container">
-        <h2>Seleção de Funcionários</h2>
+        <h2>Seleção de membros</h2>
         <div class="row">
             <div class="col-md-6">
-                <h4>Funcionários Disponíveis</h4>
+                <h4>Membros disponíveis</h4>
                 <form id="availableEmployeesForm">
                     <ul class="list-group">
                         <c:forEach var="member" items="${members}">
@@ -30,9 +30,9 @@
             </div>
         </div>
         <div class="mt-3">
-            <button class="btn btn-primary" onclick="sendSelectedEmployees()">Enviar Funcionários Selecionados</button>
+            <button class="btn btn-primary" onclick="sendSelectedEmployees()">Vincular membros</button>
         </div>
-        <a href="/" class="btn btn-link">Voltar</a>
+        <a href="/projects" class="btn btn-link">Voltar</a>
     </div>
 
     <!-- Bootstrap JS -->
@@ -61,13 +61,12 @@
                 url: url,
                 contentType: 'application/json',
                 data: JSON.stringify(requestBody),
-                success: function(response) {
-                    console.log('PATCH request successful');
-                    // Handle success response here
+                success: function() {
+                    window.location.href = 'project/list.jsp';
+
                 },
                 error: function(xhr, status, error) {
                     console.error('Error sending PATCH request:', error);
-                    // Handle error response here
                 }
             });
         }

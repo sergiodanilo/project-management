@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/projects")
@@ -43,6 +44,17 @@ public class ProjectController {
         model.addAttribute("status", ProjectStatusEnum.values());
         model.addAttribute("risks", ProjectRiskEnum.values());
         return "project/upsert";
+    }
+
+    @GetMapping("/view/{id}")
+    public String view(@PathVariable Long id, Model model) {
+        Optional<ProjectDTO> optProject = projectService.getProjectById(id);
+        if (optProject.isPresent()) {
+            model.addAttribute("project", optProject.get());
+            return "project/view";
+        } else {
+            return "error";
+        }
     }
 
     @PostMapping("upsert")

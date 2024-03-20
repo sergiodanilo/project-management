@@ -52,6 +52,10 @@
                 <td>${project.status.descricao}</td>
                 <td>${project.risco.descricao}</td>
                 <td class="actions-column">
+                    <a href="projects/view/${project.id}">
+                        <img src="https://cdn-icons.flaticon.com/svg/3917/3917132.svg?token=exp=1710953540~hmac=53b08ce5e069c53f11ebd3d291690052"
+                             alt="Magnifier" width="20" height="20" style="margin-right: 5px;">
+                    </a>
                     <a href="projects/upsert?id=${project.id}">
                         <img src="https://www.flaticon.com/svg/vstatic/svg/3917/3917376.svg?token=exp=1710952557~hmac=f9938c4517a4c21d5640a61b41e366b5"
                              alt="Pencil" width="20" height="20" style="margin-right: 5px;">
@@ -62,7 +66,7 @@
                     </a>
                     <a href="members/add/${project.id}">
                         <img src="https://www.flaticon.com/svg/vstatic/svg/5069/5069162.svg?token=exp=1710952558~hmac=5016da66a8dd00aafd7e8196c4b5103a"
-                             alt="Trash" width="20" height="20" style="margin-right: 5px;">
+                             alt="People" width="20" height="20" style="margin-right: 5px;">
                     </a>
                 </td>
             </tr>

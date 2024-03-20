@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectService {
@@ -46,9 +47,11 @@ public class ProjectService {
     }
 
     public void upsertProject(PostProjectDTO projectDTO) {
+        Optional<Project> optProject = repository.findById(projectDTO.getId());
         Project project = modelMapper.map(projectDTO, Project.class);
         Optional<Person> optGerente = personRepository.findById(projectDTO.getIdGerente());
         optGerente.ifPresent(project::setGerente);
+        optProject.ifPresent(value -> project.setMembros(value.getMembros()));
         repository.save(project);
     }
 
@@ -81,7 +84,10 @@ public class ProjectService {
 
         if (optProject.isPresent()) {
             Project project = optProject.get();
-            members.getMembros().forEach(memberId -> {
+            members.getMembros()
+                    .stream()
+                    .distinct()
+                    .forEach(memberId -> {
                 Optional<Person> optPerson = personRepository.findById(memberId);
 
                 if (optPerson.isPresent() && optPerson.get().getFuncionario() && !optPerson.get().getGerente()) {
