@@ -76,12 +76,12 @@ public class ProjectService {
         }
     }
 
-    public void addMembersToProject(Long id, PatchProjectDTO projectDTO) {
+    public void addMembersToProject(Long id, List<Long> idsFuncionarios) {
         Optional<Project> optProject = repository.findById(id);
 
         if (optProject.isPresent()) {
             Project project = optProject.get();
-            projectDTO.getMembros().forEach(memberId -> {
+            idsFuncionarios.forEach(memberId -> {
                 Optional<Person> optPerson = personRepository.findById(memberId);
 
                 if (optPerson.isPresent() && optPerson.get().getFuncionario() && !optPerson.get().getGerente()) {

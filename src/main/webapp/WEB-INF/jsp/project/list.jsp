@@ -56,6 +56,9 @@
                     <a href="projects/delete/${project.id}">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/svg/trashcan.svg" alt="Trash" width="20" height="20" style="margin-right: 5px;">
                     </a>
+                    <a href="members/add/${project.id}">
+                        <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/svg/trashcan.svg" alt="Trash" width="20" height="20" style="margin-right: 5px;">
+                    </a>
                 </td>
             </tr>
         </c:forEach>

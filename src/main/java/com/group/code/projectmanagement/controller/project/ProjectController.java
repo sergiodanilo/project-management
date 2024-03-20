@@ -36,7 +36,7 @@ public class ProjectController {
 
     @GetMapping("/upsert")
     public String createProject(Long id, Model model) {
-        List<PersonDTO> managers = personService.getAllManagerMember();
+        List<PersonDTO> managers = personService.getAllManagers();
         model.addAttribute("project", projectService.initProject(id));
         model.addAttribute("managers", managers);
         model.addAttribute("status", ProjectStatusEnum.values());
@@ -64,9 +64,9 @@ public class ProjectController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> addMembersToProject(@PathVariable Long id, @RequestBody PatchProjectDTO projectDTO) {
+    public ResponseEntity<?> addMembersToProject(@PathVariable Long id, List<Long> ids) {
         try {
-            projectService.addMembersToProject(id, projectDTO);
+            projectService.addMembersToProject(id, ids);
             return ResponseEntity.ok().build();
         } catch (ValidatorException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());

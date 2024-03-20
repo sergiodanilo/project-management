@@ -22,21 +22,11 @@ public class PersonService {
     }
 
     public List<PersonDTO> getAllMembers() {
-        List<Person> projects = repository.findAll();
-        return mapperUtils.mapList(projects, PersonDTO.class);
+        List<Person> managers = repository.findAllByFuncionarioTrueAndGerenteFalse();
+        return mapperUtils.mapList(managers, PersonDTO.class);
     }
 
-    public Optional<PersonDTO> getMemberById(Long id) {
-        Optional<Person> optPerson = repository.findById(id);
-
-        if (optPerson.isPresent()) {
-            return Optional.of(mapperUtils.map(optPerson, PersonDTO.class));
-        } else {
-            return Optional.empty();
-        }
-    }
-
-    public List<PersonDTO> getAllManagerMember() {
+    public List<PersonDTO> getAllManagers() {
         List<Person> managers = repository.findAllByGerenteTrue();
         return mapperUtils.mapList(managers, PersonDTO.class);
     }

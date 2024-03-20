@@ -5,12 +5,14 @@ import com.group.code.projectmanagement.controller.person.response.PersonDTO;
 import com.group.code.projectmanagement.exception.ValidatorException;
 import com.group.code.projectmanagement.service.PersonService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/members")
 public class PersonController {
 
@@ -20,11 +22,6 @@ public class PersonController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<PersonDTO> getAll() {
-        return service.getAllMembers();
-    }
-
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody PostPersonDTO personDTO) {
         try {
@@ -32,6 +29,13 @@ public class PersonController {
         } catch (ValidatorException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
+    }
+
+    @GetMapping("/add/{id}")
+    public String addMembers(@PathVariable Long id, Model model) {
+        model.addAttribute("id", id);
+        model.addAttribute("members", service.getAllMembers());
+        return "member/add";
     }
 
 }

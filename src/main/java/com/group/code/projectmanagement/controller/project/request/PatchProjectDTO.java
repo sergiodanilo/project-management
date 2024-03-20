@@ -2,11 +2,11 @@ package com.group.code.projectmanagement.controller.project.request;
 
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 public class PatchProjectDTO {
 
-    private Set<Long> membros;
+    private List<Long> membros;
 
 }
