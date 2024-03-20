@@ -13,9 +13,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
@@ -34,9 +34,9 @@ class PersonServiceTest {
                 Person.builder().id(1L).nome("John").dataNascimento(LocalDate.of(1990, 5, 15))
                         .cpf("12345678910").funcionario(true).gerente(false).build(),
                 Person.builder().id(2L).nome("Alice").dataNascimento(LocalDate.of(1985, 2, 20))
-                        .cpf("987654321").funcionario(true).gerente(true).build()
+                        .cpf("987654321").funcionario(true).gerente(false).build()
         );
-        when(repository.findAll()).thenReturn(mockPersons);
+        when(repository.findAllByFuncionarioTrueAndGerenteFalse()).thenReturn(mockPersons);
 
         List<PersonDTO> result = service.getAllMembers();
 
@@ -46,27 +46,20 @@ class PersonServiceTest {
     }
 
     @Test
-    void testGetMemberById_ExistingId() {
-        Long id = 1L;
-        Person mockPerson = Person.builder().id(1L).nome("John")
-                .dataNascimento(LocalDate.of(1990, 5, 15))
-                .cpf("12345678910").funcionario(true).gerente(false).build();
-        when(repository.findById(id)).thenReturn(Optional.of(mockPerson));
+    void testGetAllManagers() {
+        List<Person> mockPersons = Arrays.asList(
+                Person.builder().id(1L).nome("John").dataNascimento(LocalDate.of(1990, 5, 15))
+                        .cpf("12345678910").funcionario(true).gerente(false).build(),
+                Person.builder().id(2L).nome("Alice").dataNascimento(LocalDate.of(1985, 2, 20))
+                        .cpf("987654321").funcionario(true).gerente(true).build()
+        );
+        when(repository.findAllByGerenteTrue()).thenReturn(mockPersons);
 
-        Optional<PersonDTO> result = service.getMemberById(id);
+        List<PersonDTO> result = service.getAllManagers();
 
-        assertTrue(result.isPresent());
-        assertEquals("John", result.get().getNome());
-    }
-
-    @Test
-    void testGetMemberById_NonExistingId() {
-        Long id = 100L;
-        when(repository.findById(id)).thenReturn(Optional.empty());
-
-        Optional<PersonDTO> result = service.getMemberById(id);
-
-        assertFalse(result.isPresent());
+        assertEquals(2, result.size());
+        assertEquals("John", result.get(0).getNome());
+        assertEquals("Alice", result.get(1).getNome());
     }
 
     @Test

@@ -36,16 +36,14 @@ public class ProjectControllerTest {
     public void testCreateProject() {
         ProjectService projectService = Mockito.mock(ProjectService.class);
         PersonService personService = Mockito.mock(PersonService.class);
-        Model model = Mockito.mock(Model.class);
 
         ProjectController controller = new ProjectController(projectService, personService);
         ProjectDTO projectDTO = new ProjectDTO();
         Mockito.when(projectService.initProject(anyLong())).thenReturn(projectDTO);
 
-        String viewName = controller.createProject(1L, model);
+        String viewName = controller.createProject(new PostProjectDTO());
 
-        assertEquals("project/upsert", viewName);
-        verify(model).addAttribute("project", projectDTO);
+        assertEquals("home", viewName);
     }
 
     @Test
@@ -63,41 +61,31 @@ public class ProjectControllerTest {
 
     @Test
     public void testDelete() {
-        // Create mock of ProjectService
         ProjectService projectService = Mockito.mock(ProjectService.class);
 
-        // Set up test data
         ProjectController controller = new ProjectController(projectService, null);
         Long projectId = 1L;
 
-        // Set up behavior of mock
         doNothing().when(projectService).deleteProject(anyLong());
 
-        // Call the method to be tested
         String viewName = controller.delete(projectId);
 
-        // Verify the behavior
         assertEquals("home", viewName);
         verify(projectService).deleteProject(projectId);
     }
 
     @Test
     public void testDeleteWithError() {
-        // Create mock of ProjectService
         ProjectService projectService = Mockito.mock(ProjectService.class);
 
-        // Set up test data
         ProjectController controller = new ProjectController(projectService, null);
         Long projectId = 1L;
 
-        // Set up behavior of mock
         doThrow(new ValidatorException("Error message")).when(projectService).deleteProject(anyLong());
 
-        // Call the method to be tested
         String viewName = controller.delete(projectId);
 
-        // Verify the behavior
-        assertEquals("error", viewName);
+        assertEquals("project/error-delete", viewName);
     }
 
 }

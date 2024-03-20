@@ -15,9 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Collections;
-import java.util.Optional;
-
 @WebMvcTest(PersonController.class)
 class PersonControllerTest {
 
@@ -26,26 +23,6 @@ class PersonControllerTest {
 
     @MockBean
     private PersonService personService;
-
-    @Test
-    void testGetAll() throws Exception {
-        Mockito.when(personService.getAllMembers()).thenReturn(Collections.singletonList(
-                createPersonDTO()
-        ));
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/members"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").exists());
-    }
-
-    @Test
-    void testGetById_NonExistingId() throws Exception {
-        Long id = 1L;
-        Mockito.when(personService.getMemberById(id)).thenReturn(Optional.empty());
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/members/{id}", id))
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
-    }
 
     @Test
     void testCreate_ValidInput() throws Exception {

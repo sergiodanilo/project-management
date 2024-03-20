@@ -9,6 +9,7 @@ import com.group.code.projectmanagement.model.entities.Project;
 import com.group.code.projectmanagement.model.enums.ProjectStatusEnum;
 import com.group.code.projectmanagement.repository.PersonRepository;
 import com.group.code.projectmanagement.repository.ProjectRepository;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -117,7 +118,7 @@ class ProjectServiceTest {
     void testAddMembersToProject() {
         Long id = 1L;
         PatchProjectDTO patchProjectDTO = new PatchProjectDTO();
-        patchProjectDTO.setMembros(Sets.newSet(1L, 2L));
+        patchProjectDTO.setMembros(Arrays.asList(1L, 2L));
         Project mockProject = new Project();
         mockProject.setMembros(Sets.newSet());
         Optional<Project> optionalProject = Optional.of(mockProject);
