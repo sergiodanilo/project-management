@@ -2,6 +2,7 @@ package com.group.code.projectmanagement.controller.project.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.group.code.projectmanagement.controller.person.response.PersonDTO;
+import com.group.code.projectmanagement.model.enums.ProjectRiskEnum;
 import com.group.code.projectmanagement.model.enums.ProjectStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,7 +34,7 @@ public class ProjectDTO implements Serializable {
     private String descricao;
     private ProjectStatusEnum status;
     private Double orcamento;
-    private String risco;
+    private ProjectRiskEnum risco;
     private PersonDTO gerente;
     private Set<PersonDTO> membros;
 
