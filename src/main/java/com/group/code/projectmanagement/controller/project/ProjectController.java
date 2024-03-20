@@ -73,7 +73,7 @@ public class ProjectController {
             projectService.deleteProject(id);
             return "home";
         } catch (ValidatorException exception) {
-            return "error";
+            return "project/error-delete";
         }
     }
 
@@ -83,7 +83,7 @@ public class ProjectController {
             projectService.addMembersToProject(id, membros);
             return "home";
         } catch (ValidatorException exception) {
-            return "project/error-delete";
+            return "error";
         }
     }
 
