@@ -5,10 +5,11 @@ import com.group.code.projectmanagement.controller.project.request.PatchProjectD
 import com.group.code.projectmanagement.controller.project.request.PostProjectDTO;
 import com.group.code.projectmanagement.controller.project.response.ProjectDTO;
 import com.group.code.projectmanagement.exception.ValidatorException;
+import com.group.code.projectmanagement.model.enums.ProjectRiskEnum;
 import com.group.code.projectmanagement.model.enums.ProjectStatusEnum;
 import com.group.code.projectmanagement.service.PersonService;
 import com.group.code.projectmanagement.service.ProjectService;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,11 +36,12 @@ public class ProjectController {
     }
 
     @GetMapping("/upsert")
-    public String createProject(Long id, Model model) {
+    public String upsert(Long id, Model model) {
         List<PersonDTO> managers = personService.getAllManagers();
         model.addAttribute("project", projectService.initProject(id));
         model.addAttribute("managers", managers);
         model.addAttribute("status", ProjectStatusEnum.values());
+        model.addAttribute("risks", ProjectRiskEnum.values());
         return "project/upsert";
     }
 
@@ -63,13 +65,13 @@ public class ProjectController {
         }
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<?> addMembersToProject(@PathVariable Long id, List<Long> ids) {
+    @PatchMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String addMembersToProject(@PathVariable Long id, @RequestBody PatchProjectDTO membros) {
         try {
-            projectService.addMembersToProject(id, ids);
-            return ResponseEntity.ok().build();
+            projectService.addMembersToProject(id, membros);
+            return "home";
         } catch (ValidatorException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
+            return "error";
         }
     }
 

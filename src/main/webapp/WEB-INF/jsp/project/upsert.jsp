@@ -43,7 +43,7 @@
             </div>
             <div class="form-group">
                 <label for="status">Status:</label>
-                <select class="form-control" id="status" name="status" value="${project.status}" required>
+                <select class="form-control" id="status" name="status" value="${project.status}">
                     <option value="">[Selecione]</option>
                     <c:forEach var="status" items="${status}">
                         <option value="${status}" ${status eq project.status ? 'selected' : ''}>${status.descricao}</option>
@@ -51,8 +51,17 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="risco">Risco:</label>
+                <select class="form-control" id="risco" name="risco" value="${project.risco}">
+                    <option value="">[Selecione]</option>
+                    <c:forEach var="risk" items="${risks}">
+                        <option value="${risk}" ${risk eq project.risco ? 'selected' : ''}>${risk.descricao}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="idGerente">Gerente Responsável:</label>
-                <select class="form-control" id="idGerente" name="idGerente" value="${project.gerente.id}" required>
+                <select class="form-control" id="idGerente" name="idGerente" value="${project.gerente.id}">
                     <option value="">[Selecione]</option>
                     <c:forEach var="manager" items="${managers}">
                         <option value="${manager.id}" ${manager.id eq project.gerente.id ? 'selected' : ''}>${manager.nome}</option>

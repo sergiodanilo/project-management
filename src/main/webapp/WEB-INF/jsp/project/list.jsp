@@ -34,6 +34,7 @@
             <th>Data Real de Término</th>
             <th>Orçamento Total</th>
             <th>Status</th>
+            <th>Risco</th>
             <th>Ações</th>
         </tr>
         </thead>
@@ -49,15 +50,19 @@
                 <td>${project.dataFim}</td>
                 <td>${project.orcamento}</td>
                 <td>${project.status.descricao}</td>
+                <td>${project.risco.descricao}</td>
                 <td class="actions-column">
                     <a href="projects/upsert?id=${project.id}">
-                        <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/svg/pencil.svg" alt="Pencil" width="20" height="20" style="margin-right: 5px;">
+                        <img src="https://www.flaticon.com/svg/vstatic/svg/3917/3917376.svg?token=exp=1710952557~hmac=f9938c4517a4c21d5640a61b41e366b5"
+                             alt="Pencil" width="20" height="20" style="margin-right: 5px;">
                     </a>
                     <a href="projects/delete/${project.id}">
-                        <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/svg/trashcan.svg" alt="Trash" width="20" height="20" style="margin-right: 5px;">
+                        <img src="https://www.flaticon.com/svg/vstatic/svg/3917/3917378.svg?token=exp=1710952577~hmac=fbbd400fe490066d642f9c36d8e32a65"
+                             alt="Trash" width="20" height="20" style="margin-right: 5px;">
                     </a>
                     <a href="members/add/${project.id}">
-                        <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/svg/trashcan.svg" alt="Trash" width="20" height="20" style="margin-right: 5px;">
+                        <img src="https://www.flaticon.com/svg/vstatic/svg/5069/5069162.svg?token=exp=1710952558~hmac=5016da66a8dd00aafd7e8196c4b5103a"
+                             alt="Trash" width="20" height="20" style="margin-right: 5px;">
                     </a>
                 </td>
             </tr>

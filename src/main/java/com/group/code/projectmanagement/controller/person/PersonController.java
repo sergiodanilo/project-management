@@ -1,7 +1,6 @@
 package com.group.code.projectmanagement.controller.person;
 
 import com.group.code.projectmanagement.controller.person.request.PostPersonDTO;
-import com.group.code.projectmanagement.controller.person.response.PersonDTO;
 import com.group.code.projectmanagement.exception.ValidatorException;
 import com.group.code.projectmanagement.service.PersonService;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/members")
@@ -31,7 +29,7 @@ public class PersonController {
         }
     }
 
-    @GetMapping("/add/{id}")
+    @GetMapping(value = "/add/{id}")
     public String addMembers(@PathVariable Long id, Model model) {
         model.addAttribute("id", id);
         model.addAttribute("members", service.getAllMembers());
